@@ -16,11 +16,11 @@ function CountryCard(props) {
 
   return (
     <>
-      <Card sx={{ maxWidth: 300, height:'350px' }}>
+      <Card sx={{ maxWidth: 300,height: '400px' }}>
         <CardActionArea>
           <CardMedia
             component="img"
-            height="140"
+            height="200"
             image={countryFlag}
             alt="green iguana"
           />
