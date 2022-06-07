@@ -11,7 +11,7 @@ import { style } from "@mui/system";
 function Navbar() {
   return (
     <>
-      <AppBar position="sticky" sx={{ bgcolor: "white" }}>
+      <AppBar  position="static" sx={{ bgcolor: "white" }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={customstyle.logo}>
             Where in the world?

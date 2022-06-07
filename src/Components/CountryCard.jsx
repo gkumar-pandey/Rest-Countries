@@ -4,19 +4,33 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-function CountryCard() {
+import CountryCardDetails from "./CountryCardDetails";
+function CountryCard(props) {
+  const { countryData } = props;
+  
+  const countryName = countryData.name.common;
+  const countryFlag = countryData.flags.svg;
+  const countryPopulation = countryData.population;
+  const countryRegion = countryData.region;
+  const countryCapital = countryData.capital;
+
   return (
     <>
-      <Card sx={{ maxWidth: 300 , border: '1px solid red' }}>
+      <Card sx={{ maxWidth: 300, height:'350px' }}>
         <CardActionArea>
           <CardMedia
             component="img"
             height="140"
-            image="/static/images/cards/contemplative-reptile.jpg"
+            image={countryFlag}
             alt="green iguana"
           />
           <CardContent>
-            
+            <CountryCardDetails
+              countryName={countryName}
+              Population={countryPopulation}
+              Region={countryRegion}
+              Capital={countryCapital}
+            />
           </CardContent>
         </CardActionArea>
       </Card>
