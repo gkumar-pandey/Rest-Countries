@@ -33,7 +33,6 @@ function Countrydetails() {
 const customStyle = {
   backbtn: {
     marginTop: "5rem",
-    // border:'1px solid red',
   },
 };
 

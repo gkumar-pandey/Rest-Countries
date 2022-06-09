@@ -3,7 +3,6 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-
 import Button from "@mui/material/Button";
 
 function Navbar() {
@@ -15,7 +14,9 @@ function Navbar() {
             Where in the world?
           </Typography>
           <Button variant="outline" startIcon={<DarkModeOutlinedIcon />}>
-            Dark Mode
+            <Typography variant="body1" style={{ textTransform: "capitalize" }}>
+              Dark Mode
+            </Typography>
           </Button>
         </Toolbar>
       </AppBar>
