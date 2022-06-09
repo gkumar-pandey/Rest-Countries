@@ -1,17 +1,17 @@
 import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Components/Navbar";
-import CountryCardList from "./Components/CountryCardList";
-import FilterSearch from "./Components/FilterSearch";
-import { Container } from "@mui/system";
+import Content from "./Components/Content";
+import Countrydetails from "./Pages/Countrydetails";
 function App() {
   return (
-    <div className="App">
+    <Router>
       <Navbar />
-      <FilterSearch />
-      <Container sx={{  width: '95%'}} maxWidth='false'>
-        <CountryCardList />
-      </Container>
-    </div>
+      <Routes>
+        <Route path="/" element={<Content />} />
+        <Route path="/detail" element={<Countrydetails />} />
+      </Routes>
+    </Router>
   );
 }
 
