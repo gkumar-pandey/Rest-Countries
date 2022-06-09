@@ -2,7 +2,7 @@ import React from "react";
 import FilterSearch from "./FilterSearch";
 import CountryCardList from "./CountryCardList";
 import { Container } from "@mui/system";
-function Content(props) {
+function Home() {
   return (
     <>
       <Container sx={{ width: "100%" }} maxWidth="false">
@@ -14,4 +14,4 @@ function Content(props) {
   );
 }
 
-export default Content;
+export default Home;

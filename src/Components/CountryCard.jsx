@@ -2,7 +2,6 @@ import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import CountryCardDetails from "./CountryCardDetails";
 function CountryCard(props) {
@@ -16,7 +15,7 @@ function CountryCard(props) {
 
   return (
     <>
-      <Card sx={{ maxWidth: 300,height: '400px' }}>
+      <Card sx={{ width: 300,height: '400px' }}>
         <CardActionArea>
           <CardMedia
             component="img"

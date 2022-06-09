@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Box } from "@mui/system";
+import { CircularProgress } from "@mui/material";
 import { Button, Grid, Typography } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import axios from "axios";
 function Countrydetails() {
+  const [countryName, setcountryName] = useState('')
+  const [singleCountryDetails , setsingleCountryDetails] = useState([]);
+  
+  const fetchSingleCountryDetials = async() => {
+    const {data} = await axios.get(`https://restcountries.com/v3.1/name/${countryName}`);
+    // setsingleCountryDetails(data);
+
+  }
+
+  useEffect(()=> {
+    // fetchSingleCountryDetials();
+  },[])
    
-  return (
-    <div>
+  return (<>
+    {
+      singleCountryDetails.length == 0 ? ( <Box sx={{ display: "flex", justifyContent: "center", marginTop:'4rem' }}>
+          <CircularProgress />
+        </Box>):  (<div>
       <div style={customStyle.backbtn}>
         <Link to='/' style={{textDecoration: 'none',color: 'black'}}>
           <Button
@@ -27,8 +45,10 @@ function Countrydetails() {
         <Grid item lg={6} sm={6}></Grid>
         <Grid item lg={6} sm={6}></Grid>
       </Grid>
-    </div>
-  );
+    </div>)
+    }
+   
+  </>);
 }
 const customStyle = {
   backbtn: {

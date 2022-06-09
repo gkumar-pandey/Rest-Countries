@@ -6,7 +6,7 @@ import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { Link, useNavigate} from "react-router-dom";
 
-function CountryCardList(props) {
+function CountryCardList() {
   const [countrydata, setcountrydata] = useState([]);
   const FetchCountries = async () => {
     const { data } = await axios.get(`https://restcountries.com/v3.1/all`);
@@ -15,10 +15,7 @@ function CountryCardList(props) {
   useEffect(() => {
     FetchCountries();
   }, []);
-  const navigate = useNavigate();
-  const tocountryDetails = () => {
-    navigate('/detail', {state: {name: 'gautam '}})
-  }
+   
   return (
     <>
       {countrydata.length == 0 ? (
@@ -42,7 +39,7 @@ function CountryCardList(props) {
                   marginBottom: "2rem",
                 }}
               >
-                <Link to="/detail" onClick={()=> tocountryDetails()} style={{textDecoration: 'none'}}   >
+                <Link to="/detail" style={{textDecoration: 'none'}}   >
                   <CountryCard countryData={countrydata} key={idx} />
                 </Link>
               </Grid>
