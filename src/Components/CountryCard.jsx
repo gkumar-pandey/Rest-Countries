@@ -6,7 +6,7 @@ import { CardActionArea } from "@mui/material";
 function CountryCard(props) {
   const { countryData } = props;
 
-  const countryName = countryData.name.common;
+  const countryName = countryData.name;
   const countryFlag = countryData.flags.svg;
   const countryPopulation = countryData.population;
   const countryRegion = countryData.region;

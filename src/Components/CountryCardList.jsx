@@ -6,7 +6,7 @@ import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 
-function CountryCardList() {
+function CountryCardList(props) {
   const [countrydata, setcountrydata] = useState([]);
   const FetchCountries = async () => {
     const { data } = await axios.get(`https://restcountries.com/v2/all`);
@@ -25,7 +25,7 @@ function CountryCardList() {
       ) : (
         <Grid container sx={{ padding: "1rem", margin: "auto" }}>
           {countrydata.map((countrydata, idx) => {
-             
+            const name = countrydata.name;
             return (
               <Grid
                 item
@@ -38,11 +38,10 @@ function CountryCardList() {
                   justifyContent: "center",
                   padding: "1rem 1rem",
                   marginBottom: "2rem",
-                  // border: '1px solid red'
                 }}
                 key={idx}
               >
-                <Link to='/detail' style={{textDecoration: 'none'}}>
+                <Link to={`/detail/${name}`} style={{ textDecoration: "none" }}>
                   <CountryCard countryData={countrydata} />
                 </Link>
               </Grid>
