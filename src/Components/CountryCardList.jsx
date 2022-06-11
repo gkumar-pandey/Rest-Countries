@@ -4,18 +4,18 @@ import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
-import { Link, useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CountryCardList() {
   const [countrydata, setcountrydata] = useState([]);
   const FetchCountries = async () => {
-    const { data } = await axios.get(`https://restcountries.com/v3.1/all`);
+    const { data } = await axios.get(`https://restcountries.com/v2/all`);
     setcountrydata(data.slice(0, 12));
   };
   useEffect(() => {
     FetchCountries();
   }, []);
-   
+
   return (
     <>
       {countrydata.length == 0 ? (
@@ -25,6 +25,7 @@ function CountryCardList() {
       ) : (
         <Grid container sx={{ padding: "1rem", margin: "auto" }}>
           {countrydata.map((countrydata, idx) => {
+             
             return (
               <Grid
                 item
@@ -37,10 +38,12 @@ function CountryCardList() {
                   justifyContent: "center",
                   padding: "1rem 1rem",
                   marginBottom: "2rem",
+                  // border: '1px solid red'
                 }}
+                key={idx}
               >
-                <Link to="/detail" style={{textDecoration: 'none'}}   >
-                  <CountryCard countryData={countrydata} key={idx} />
+                <Link to='/detail' style={{textDecoration: 'none'}}>
+                  <CountryCard countryData={countrydata} />
                 </Link>
               </Grid>
             );

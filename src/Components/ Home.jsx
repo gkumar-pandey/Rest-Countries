@@ -7,7 +7,6 @@ function Home() {
     <>
       <Container sx={{ width: "100%" }} maxWidth="false">
         <FilterSearch />
-
         <CountryCardList   />
       </Container>
     </>
