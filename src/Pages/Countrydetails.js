@@ -30,50 +30,53 @@ function Countrydetails() {
           <CircularProgress />
         </div>
       ) : (
-        <Container maxWidth='80%'  sx={{  marginTop: '5rem'}}>
-          <Grid
-            container
-            style={{  height: '90vh', display: 'flex',alignItems: 'center' }}
-          >
-            {singleCountryDetails.map(
-              (
-                {
-                  flag,
-                  name,
-                  nativeName,
-                  topLevelDomain,
-                  capital,
-                  subregion,
-                  region,
-                  population,
-                  currencies,
-                  languages,
-                },
-                idx
-              ) => {
-                return (
-                  <>
-                    <Grid item lg={6} md={6} sm={12}>
-                      <SingleCountryFlag countryflag={flag} />
-                    </Grid>
-                    <Grid item lg={6} md={6} sm={12}>
-                      <SingleCountryDetailContainer
-                        name={name}
-                        nativename={nativeName}
-                        topleveldomain={topLevelDomain}
-                        capital={capital}
-                        subregion={subregion}
-                        region={region}
-                        population={population}
-                        currencies={currencies}
-                        languages={languages}
-                      />
-                    </Grid>
-                  </>
-                );
-              }
-            )}
-          </Grid>
+        <Container maxWidth="80%" sx={{ marginTop: "5rem" }}>
+          {singleCountryDetails.map(
+            (
+              {
+                flag,
+                name,
+                nativeName,
+                topLevelDomain,
+                capital,
+                subregion,
+                region,
+                population,
+                currencies,
+                languages,
+              },
+              idx
+            ) => {
+              return (
+                <Grid
+                  key={name}
+                  container
+                  style={{
+                    height: "90vh",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Grid item lg={6} md={6} sm={12}>
+                    <SingleCountryFlag countryflag={flag} />
+                  </Grid>
+                  <Grid item lg={6} md={6} sm={12}>
+                    <SingleCountryDetailContainer
+                      name={name}
+                      nativename={nativeName}
+                      topleveldomain={topLevelDomain}
+                      capital={capital}
+                      subregion={subregion}
+                      region={region}
+                      population={population}
+                      currencies={currencies}
+                      languages={languages}
+                    />
+                  </Grid>
+                </Grid>
+              );
+            }
+          )}
         </Container>
       )}
     </>
