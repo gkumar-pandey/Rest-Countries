@@ -15,7 +15,7 @@ function CountryCardList(props) {
   const [FilteredCountries, setFilteredCountries] = useState([]);
   const FetchCountries = async () => {
     const { data } = await axios.get(`https://restcountries.com/v2/all`);
-    setcountrydata(data.slice(0, 12));
+    setcountrydata(data);
   };
   useEffect(() => {
     FetchCountries();
@@ -35,6 +35,7 @@ function CountryCardList(props) {
   };
   // FilterBySelect function
   const SelectFilter = (searchParam) => {
+    console.log(searchParam)
     setInputValue(searchParam);
     if (inputValue) {
       const filterCountries = countrydata.filter(({ region }) => {
@@ -59,32 +60,65 @@ function CountryCardList(props) {
             SelectFilter={SelectFilter}
           />
           <Grid container sx={{ padding: "1rem", margin: "auto" }}>
-            {countrydata.map((countrydata, idx) => {
-              const name = countrydata.name;
-              return (
-                <Grid
-                  item
-                  xs={12}
-                  sm={4}
-                  md={3}
-                  lg={3}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    padding: "1rem 1rem",
-                    marginBottom: "2rem",
-                  }}
-                  key={idx}
-                >
-                  <Link
-                    to={`/detail/${name}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <CountryCard countryData={countrydata} />
-                  </Link>
-                </Grid>
-              );
-            })}
+            {inputValue.length == 0 ? (
+              <>
+                {countrydata.map((countrydata, idx) => {
+                  const name = countrydata.capital;
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      sm={4}
+                      md={3}
+                      lg={3}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        padding: "1rem 1rem",
+                        marginBottom: "2rem",
+                      }}
+                      key={idx}
+                    >
+                      <Link
+                        to={`/detail/${name}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <CountryCard countryData={countrydata} />
+                      </Link>
+                    </Grid>
+                  );
+                })}
+              </>
+            ) : (
+              <>
+                {FilteredCountries.map((countrydata, idx) => {
+                  const name = countrydata.capital;
+                  return (
+                    <Grid
+                      item
+                      xs={12}
+                      sm={4}
+                      md={3}
+                      lg={3}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        padding: "1rem 1rem",
+                        marginBottom: "2rem",
+                      }}
+                      key={idx}
+                    >
+                      <Link
+                        to={`/detail/${name}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <CountryCard countryData={countrydata} />
+                      </Link>
+                    </Grid>
+                  );
+                })}
+              </>
+            )}
           </Grid>
         </>
       )}

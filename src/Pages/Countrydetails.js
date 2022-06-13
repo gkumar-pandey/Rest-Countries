@@ -9,7 +9,7 @@ function Countrydetails() {
   const { id } = useParams();
   const [singleCountryDetails, setsingleCountryDetails] = useState([]);
   const FetchCountriesDetails = async () => {
-    const { data } = await axios.get(`https://restcountries.com/v2/name/${id}`);
+    const { data } = await axios.get(`https://restcountries.com/v2/capital/${id}`);
     setsingleCountryDetails(data);
   };
   console.log(singleCountryDetails);
