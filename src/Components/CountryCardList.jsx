@@ -10,9 +10,9 @@ import { Link } from "react-router-dom";
 
 function CountryCardList(props) {
   const [inputValue, setInputValue] = useState("");
-   
+
   const [countrydata, setcountrydata] = useState([]);
-  const [FilteredCountries, setFilteredCountries] = useState([])
+  const [FilteredCountries, setFilteredCountries] = useState([]);
   const FetchCountries = async () => {
     const { data } = await axios.get(`https://restcountries.com/v2/all`);
     setcountrydata(data.slice(0, 12));
@@ -20,25 +20,31 @@ function CountryCardList(props) {
   useEffect(() => {
     FetchCountries();
   }, []);
-  // SearchFilter function 
-  const SearchFilter = (searchParam)=>{
-    setInputValue(searchParam)
+  // SearchFilter function
+  const SearchFilter = (searchParam) => {
+    setInputValue(searchParam);
 
-    if(inputValue){
-      const filterCountries = countrydata.filter(({name})=>{
-        return (name.toLowerCase().includes(inputValue.toLowerCase()))
-      })
-     setFilteredCountries(filterCountries)
+    if (inputValue) {
+      const filterCountries = countrydata.filter(({ name }) => {
+        return name.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      setFilteredCountries(filterCountries);
+    } else {
+      setFilteredCountries(countrydata);
     }
-    else{
-      setFilteredCountries(countrydata)
-    }
-  }
+  };
   // FilterBySelect function
-  const SelectFilter = (searchParam)=> {
-    setInputValue(searchParam)
-    
-  }
+  const SelectFilter = (searchParam) => {
+    setInputValue(searchParam);
+    if (inputValue) {
+      const filterCountries = countrydata.filter(({ region }) => {
+        return region.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      setFilteredCountries(filterCountries);
+    } else {
+      setFilteredCountries(countrydata);
+    }
+  };
 
   return (
     <>
@@ -48,7 +54,10 @@ function CountryCardList(props) {
         </Box>
       ) : (
         <>
-          <FilterSearch SearchFilter={SearchFilter} SelectFilter={SelectFilter} />
+          <FilterSearch
+            SearchFilter={SearchFilter}
+            SelectFilter={SelectFilter}
+          />
           <Grid container sx={{ padding: "1rem", margin: "auto" }}>
             {countrydata.map((countrydata, idx) => {
               const name = countrydata.name;
