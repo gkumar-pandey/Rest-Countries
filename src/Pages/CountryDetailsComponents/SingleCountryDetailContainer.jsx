@@ -19,20 +19,27 @@ function SingleCountryDetailContainer(props) {
   } = props;
   return (
     <>
-      <Container maxWidth="md"  >
-        <Typography variant="h3" component="div" sx={{ fontWeight: "600", margin: '1rem 0'}}>
+      <Container maxWidth="md">
+        <Typography
+          variant="h3"
+          component="div"
+          sx={{ fontWeight: "600", margin: "1rem 0" }}
+        >
           {name}
         </Typography>
-        <Grid container  >
-          <Grid item lg={4}  >
+        <Grid container>
+          <Grid item lg={4}>
             <SingleCountryData title="Native Name: " data={nativename} />
             <SingleCountryData title="Population: " data={population} />
             <SingleCountryData title="Region: " data={region} />
             <SingleCountryData title="Sub Region: " data={subregion} />
             <SingleCountryData title="Capital: " data={capital} />
           </Grid>
-          <Grid item lg={4}  >
-            <SingleCountryData title="Top Level Domain: " data={topleveldomain} />
+          <Grid item lg={4}>
+            <SingleCountryData
+              title="Top Level Domain: "
+              data={topleveldomain}
+            />
             <SingleCountryData
               title="Currencies: "
               data={currencies[0]["name"]}
@@ -41,7 +48,7 @@ function SingleCountryDetailContainer(props) {
           </Grid>
         </Grid>
         <Box>
-            <BorderCountries/>
+          <BorderCountries />
         </Box>
       </Container>
     </>

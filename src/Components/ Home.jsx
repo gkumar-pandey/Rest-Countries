@@ -5,7 +5,7 @@ import { Container } from "@mui/system";
 function Home() {
   return (
     <>
-      <Container sx={{ width: "100%" }} maxWidth="false">
+      <Container sx={{ width: "100%", marginTop: '5rem' }} maxWidth="false">
         <FilterSearch />
         <CountryCardList   />
       </Container>
