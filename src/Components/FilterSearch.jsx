@@ -1,9 +1,9 @@
 import React from "react";
 import { Grid, TextField } from "@mui/material";
-import { Box, MenuItem } from "@mui/material";
-import { Container } from "@mui/system";
+import { MenuItem } from "@mui/material";
 
-function FilterSearch() {
+function FilterSearch(props) {
+  const { SearchFilter, SelectFilter } = props;
   return (
     <Grid
       container
@@ -19,6 +19,9 @@ function FilterSearch() {
           placeholder="Search for Country...."
           size="small"
           sx={{ width: "100%" }}
+          onChange={(e) => {
+            SearchFilter(e.target.value);
+          }}
         ></TextField>
       </Grid>
       <Grid
@@ -33,7 +36,12 @@ function FilterSearch() {
           size="small"
           select
           sx={{ width: "200px" }}
+          onChange={(e) => {
+            SelectFilter(e.target.value);
+          }}
         >
+          <MenuItem value="">Filter by Region</MenuItem>
+
           <MenuItem value="Africa">Africa</MenuItem>
           <MenuItem value="America">America</MenuItem>
           <MenuItem value="Asia">Asia</MenuItem>

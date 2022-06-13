@@ -4,7 +4,6 @@ import Navbar from "./Components/Navbar";
 import Countrydetails from "./Pages/Countrydetails";
 import Home from "./Components/ Home";
 function App() {
-   
 
   return (
     <Router>
