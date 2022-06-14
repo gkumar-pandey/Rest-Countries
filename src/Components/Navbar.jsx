@@ -3,9 +3,11 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import LightModeIcon from '@mui/icons-material/LightMode';
 import Button from "@mui/material/Button";
 
-function Navbar() {
+function Navbar(props) {
+  const {isDarkMode,HandleDarkMode} = props;
   return (
     <>
       <AppBar position="fixed" color="">
@@ -13,7 +15,7 @@ function Navbar() {
           <Typography variant="h6" component="div" sx={customstyle.logo}>
             Where in the world?
           </Typography>
-          <Button variant="outline" startIcon={<DarkModeOutlinedIcon />}>
+          <Button variant="outline" onClick={()=> HandleDarkMode()} startIcon={isDarkMode?<DarkModeOutlinedIcon />:<LightModeIcon/>}>
             <Typography variant="body1" style={{ textTransform: "capitalize" }}>
               Dark Mode
             </Typography>
