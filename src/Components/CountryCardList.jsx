@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CountryCard from "./CountryCard";
 import FilterSearch from "./FilterSearch";
 
@@ -9,8 +9,9 @@ import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 
 function CountryCardList(props) {
-  const [inputValue, setInputValue] = useState("");
-
+  const [searchInput, setSearchInput] = useState("");
+  const [selectRegionInput, setSelectRegionInput] = useState("");
+  const inputValue = "";
   const [countrydata, setcountrydata] = useState([]);
   const [FilteredCountries, setFilteredCountries] = useState([]);
   const FetchCountries = async () => {
@@ -20,32 +21,38 @@ function CountryCardList(props) {
   useEffect(() => {
     FetchCountries();
   }, []);
-  // SearchFilter function
-  const SearchFilter = (searchParam) => {
-    setInputValue(searchParam);
 
-    if (inputValue) {
+  // SearchFilter function
+  const SearchCountries = (searchParam) => {
+    setSearchInput(searchParam);
+  };
+  useEffect(() => {
+    if (searchInput) {
       const filterCountries = countrydata.filter(({ name }) => {
-        return name.toLowerCase().includes(inputValue.toLowerCase());
+        return name.toLowerCase().includes(searchInput.toLowerCase());
       });
       setFilteredCountries(filterCountries);
     } else {
       setFilteredCountries(countrydata);
     }
+  }, [searchInput]);
+
+  const SelectCountriesByRegion = (selectParam) => {
+    setSelectRegionInput(selectParam);
   };
-  // FilterBySelect function
-  const SelectFilter = (searchParam) => {
-    console.log(searchParam)
-    setInputValue(searchParam);
-    if (inputValue) {
+  useEffect(() => {
+    if(selectRegionInput){
+       
       const filterCountries = countrydata.filter(({ region }) => {
-        return region.toLowerCase().includes(inputValue.toLowerCase());
+        return region.toLowerCase().includes(selectRegionInput.toLowerCase());
       });
       setFilteredCountries(filterCountries);
-    } else {
-      setFilteredCountries(countrydata);
     }
-  };
+    else{
+      setFilteredCountries(countrydata)
+    }
+    
+  }, [selectRegionInput]);
 
   return (
     <>
@@ -56,11 +63,13 @@ function CountryCardList(props) {
       ) : (
         <>
           <FilterSearch
-            SearchFilter={SearchFilter}
-            SelectFilter={SelectFilter}
+            SelectCountriesByRegion={SelectCountriesByRegion}
+            SearchCountries={SearchCountries}
+            searchInput={searchInput}
+            selectRegionInput={selectRegionInput}
           />
           <Grid container sx={{ padding: "1rem", margin: "auto" }}>
-            {inputValue.length == 0 ? (
+            {(selectRegionInput.length==0 && searchInput.length==0) ? (
               <>
                 {countrydata.map((countrydata, idx) => {
                   const name = countrydata.capital;

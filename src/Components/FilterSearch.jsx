@@ -3,7 +3,12 @@ import { Grid, TextField } from "@mui/material";
 import { MenuItem } from "@mui/material";
 
 function FilterSearch(props) {
-  const { SearchFilter, SelectFilter } = props;
+  const {
+    SelectCountriesByRegion,
+    SearchCountries,
+    searchInput,
+    selectRegionInput,
+  } = props;
   return (
     <Grid
       container
@@ -19,8 +24,9 @@ function FilterSearch(props) {
           placeholder="Search for Country...."
           size="small"
           sx={{ width: "100%" }}
+          // value={searchInput}
           onChange={(e) => {
-            SearchFilter(e.target.value);
+            SearchCountries(e.target.value);
           }}
         ></TextField>
       </Grid>
@@ -35,12 +41,14 @@ function FilterSearch(props) {
           label="Filter by Region"
           size="small"
           select
+           
           sx={{ width: "200px" }}
-          onChange={(e) => {
-            SelectFilter(e.target.value);
+          onChange={(e)=> {
+            SelectCountriesByRegion(e.target.value)
           }}
+          
         >
-          <MenuItem value="">Filter by Region</MenuItem>
+          <MenuItem value="" >Filter By Region</MenuItem>
 
           <MenuItem value="Africa">Africa</MenuItem>
           <MenuItem value="America">America</MenuItem>
