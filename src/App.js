@@ -4,19 +4,30 @@ import Navbar from "./Components/Navbar";
 import Countrydetails from "./Pages/Countrydetails";
 import Home from "./Components/ Home";
 import { useState } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Paper } from "@mui/material";
 function App() {
-  const [isDarkMode, setDarkMode] = useState(false)
+  const [isDarkMode, setDarkMode] = useState(false);
   const HandleDarkMode = () => {
-    setDarkMode(!isDarkMode)
-  }
+    setDarkMode(!isDarkMode);
+  };
+  const theme = createTheme({
+    palette: {
+      mode: isDarkMode ? "dark" : "light",
+    },
+  });
   return (
-    <Router>
-      <Navbar isDarkMode={isDarkMode} HandleDarkMode={HandleDarkMode} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/detail/:id" element={<Countrydetails />} />
-      </Routes>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Paper  >
+        <Router>
+          <Navbar isDarkMode={isDarkMode} HandleDarkMode={HandleDarkMode} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/detail/:id" element={<Countrydetails />} />
+          </Routes>
+        </Router>
+      </Paper>
+    </ThemeProvider>
   );
 }
 
