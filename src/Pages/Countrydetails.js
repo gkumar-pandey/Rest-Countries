@@ -1,28 +1,40 @@
 import axios from "axios";
-import { CircularProgress, Container, Grid } from "@mui/material";
+import { Box, Button, CircularProgress, Container, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SingleCountryDetailContainer from "./CountryDetailsComponents/SingleCountryDetailContainer";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import SingleCountryFlag from "./CountryDetailsComponents/SingleCountryFlag";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 function Countrydetails() {
   const { id } = useParams();
   const [singleCountryDetails, setsingleCountryDetails] = useState([]);
   const FetchCountriesDetails = async () => {
-    const { data } = await axios.get(`https://restcountries.com/v2/capital/${id}`);
+    const { data } = await axios.get(
+      `https://restcountries.com/v2/capital/${id}`
+    );
     setsingleCountryDetails(data);
   };
-  console.log(singleCountryDetails);
 
   useEffect(() => {
     FetchCountriesDetails();
   }, []);
   return (
-    <>
+    <div style={{ marginTop: "5rem" }}>
+      <Box sx={{ padding: "1.4rem 1.5rem" }}>
+        <Link to={`/`} style={{textDecoration: 'none'}}>
+          <Button
+            variant="contained"
+            startIcon={<KeyboardBackspaceIcon />}
+            sx={{ marginLeft: "1rem" }}
+          >
+            Back
+          </Button>
+        </Link>
+      </Box>
       {singleCountryDetails.length == 0 ? (
         <div
           style={{
-            marginTop: "5rem",
             display: "flex",
             justifyContent: "center",
           }}
@@ -30,7 +42,7 @@ function Countrydetails() {
           <CircularProgress />
         </div>
       ) : (
-        <Container maxWidth="80%" sx={{ marginTop: "5rem" }}>
+        <Container maxWidth="100%">
           {singleCountryDetails.map(
             (
               {
@@ -44,6 +56,7 @@ function Countrydetails() {
                 population,
                 currencies,
                 languages,
+                borders,
               },
               idx
             ) => {
@@ -52,7 +65,6 @@ function Countrydetails() {
                   key={name}
                   container
                   style={{
-                    height: "90vh",
                     display: "flex",
                     alignItems: "center",
                   }}
@@ -71,6 +83,7 @@ function Countrydetails() {
                       population={population}
                       currencies={currencies}
                       languages={languages}
+                      borders={borders}
                     />
                   </Grid>
                 </Grid>
@@ -79,7 +92,7 @@ function Countrydetails() {
           )}
         </Container>
       )}
-    </>
+    </div>
   );
 }
 

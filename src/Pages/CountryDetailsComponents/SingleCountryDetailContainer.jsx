@@ -1,11 +1,10 @@
 import { Grid, Typography } from "@mui/material";
 import SingleCountryData from "./SingleCountryData";
 import { Container } from "@mui/system";
-import BorderCountries from "./BorderCountries";
-import { Box } from "@mui/system";
 import React from "react";
 
 function SingleCountryDetailContainer(props) {
+  // console.log(props)
   const {
     name,
     nativename,
@@ -16,7 +15,9 @@ function SingleCountryDetailContainer(props) {
     population,
     currencies,
     languages,
+    borders,
   } = props;
+
   return (
     <>
       <Container maxWidth="md">
@@ -28,14 +29,14 @@ function SingleCountryDetailContainer(props) {
           {name}
         </Typography>
         <Grid container>
-          <Grid item lg={4}>
+          <Grid item lg={4} sm={12}>
             <SingleCountryData title="Native Name: " data={nativename} />
             <SingleCountryData title="Population: " data={population} />
             <SingleCountryData title="Region: " data={region} />
             <SingleCountryData title="Sub Region: " data={subregion} />
             <SingleCountryData title="Capital: " data={capital} />
           </Grid>
-          <Grid item lg={4}>
+          <Grid item lg={4} sm={12}>
             <SingleCountryData
               title="Top Level Domain: "
               data={topleveldomain}
@@ -47,9 +48,6 @@ function SingleCountryDetailContainer(props) {
             <SingleCountryData title="Languages" data={languages[0]["name"]} />
           </Grid>
         </Grid>
-        <Box>
-          <BorderCountries />
-        </Box>
       </Container>
     </>
   );

@@ -34,7 +34,6 @@ function Navbar(props) {
 
 const customstyle = {
   logo: {
-    // color: "black",
     flexGrow: "1",
     fontWeight: "bold",
   },

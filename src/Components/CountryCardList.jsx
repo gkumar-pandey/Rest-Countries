@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 function CountryCardList(props) {
   const [searchInput, setSearchInput] = useState("");
   const [selectRegionInput, setSelectRegionInput] = useState("");
-  const inputValue = "";
   const [countrydata, setcountrydata] = useState([]);
   const [FilteredCountries, setFilteredCountries] = useState([]);
   const FetchCountries = async () => {

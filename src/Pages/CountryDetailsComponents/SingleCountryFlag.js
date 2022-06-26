@@ -7,8 +7,8 @@ function SingleCountryFlag(props) {
   return (
     <>
       <Card>
-        <CardActionArea sx={{ maxWidth: "100%",padding: '1.2rem' }}>
-          <CardMedia component="img" height="40%" image={countryflag} />
+        <CardActionArea sx={{ maxWidth: "100%",padding: '1.2rem',borderRadius: '1rem' }}>
+          <CardMedia component="img" height="40%" image={countryflag} sx={{borderRadius: '0.5rem'}} />
         </CardActionArea>
       </Card>
     </>

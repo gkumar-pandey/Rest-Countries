@@ -1,15 +1,18 @@
-import { border } from "@mui/system";
+import { Grid, Typography } from "@mui/material";
 import React from "react";
 
 function SingleCountryData(props) {
   const { title, data } = props;
-  return <>
-    <div style={{display: 'flex',alignItems: 'center' ,height:'15%'}}>
-      
-      <h3 style={{fontSize: '1.3rem'}}>{title}</h3>
-      <p style={{fontSize: '1.2rem', marginLeft: '5px'}}>{data}</p>
-    </div>
-  </>;
+  return (
+    <Grid container alignItems='center' sx={{padding: "0.5rem 0rem" }}>
+      <Grid item>
+        <Typography   variant='h6' component='h4' sx={{fontWeight: 'bold'}}>{title}</Typography>
+      </Grid>
+      <Grid item sx={{ marginLeft: "5px" }}>
+      <Typography variant='h6' component='h4'  >{data}</Typography>
+      </Grid>
+    </Grid>
+  );
 }
 
 export default SingleCountryData;
