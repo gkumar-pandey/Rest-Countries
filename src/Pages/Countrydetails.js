@@ -39,7 +39,7 @@ function Countrydetails() {
             justifyContent: "center",
           }}
         >
-          <CircularProgress />
+          <CircularProgress color="secondary" />
         </div>
       ) : (
         <Container maxWidth="100%">

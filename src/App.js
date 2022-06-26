@@ -27,7 +27,11 @@ function App() {
          
       }
     },
+    typography: {
+      fontFamily: "Raleway, sans-serif"
+    }
   });
+  console.log(theme)
   return (
     <ThemeProvider theme={theme} >
     <CssBaseline/>

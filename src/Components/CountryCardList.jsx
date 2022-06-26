@@ -57,7 +57,7 @@ function CountryCardList(props) {
     <>
       {countrydata.length == 0 ? (
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <CircularProgress />
+          <CircularProgress color="secondary" />
         </Box>
       ) : (
         <>
