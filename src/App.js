@@ -31,7 +31,7 @@ function App() {
       fontFamily: "Raleway, sans-serif"
     }
   });
-  console.log(theme)
+  // console.log(theme)
   return (
     <ThemeProvider theme={theme} >
     <CssBaseline/>
