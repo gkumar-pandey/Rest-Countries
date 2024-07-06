@@ -1,55 +1,106 @@
-import React from "react";
-import { Grid, TextField } from "@mui/material";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  Select,
+  Stack,
+  TextField,
+} from "@mui/material";
 import { MenuItem } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import useDebounce from "../hook/useDebounce";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchAllCountries,
+  fetchCountryByName,
+  fetchCountryByRegion,
+  setFilter,
+} from "../store/countrySlice";
 
-function FilterSearch(props) {
-  const { SelectCountriesByRegion, SearchCountries } = props;
+const RegionSelect = ({ value, onChange, name }) => {
+  const regions = [
+    { text: "Africa", value: "Africa" },
+    { text: "America", value: "America" },
+    { text: "Asia", value: "Asia" },
+    { text: "Europe", value: "Europe" },
+    { text: "Oceania", value: "Oceania" },
+  ];
+
   return (
-    <Grid
-      container
-      spacing={2}
-      sx={{
-        margin: "auto",
-      }}
-      maxWidth="90%"
-    >
-      <Grid item lg={4} sm={8} md={6}>
-        <TextField
-          id="input-with-icon-textfield"
-          placeholder="Search for Country...."
-          size="small"
-          sx={{ width: "100%" }}
-          onChange={(e) => {
-            SearchCountries(e.target.value);
-          }}
-        ></TextField>
-      </Grid>
-      <Grid
-        item
-        lg={8}
-        sm={4}
-        md={4}
-        sx={{ display: "flex", justifyContent: "flex-end" }}
+    <FormControl sx={{ width: 250, boxShadow: 1 }}>
+      <Select
+        placeholder="Filter By Region"
+        name={name}
+        value={value}
+        onChange={onChange}
       >
-        <TextField
-          label="Filter by Region"
-          size="small"
-          select
-          sx={{ width: "200px" }}
-          onChange={(e) => {
-            SelectCountriesByRegion(e.target.value);
-          }}
-        >
-          <MenuItem value="">Filter By Region</MenuItem>
+        {regions.map((ele, idx) => (
+          <MenuItem key={idx} value={ele.value}>
+            {ele.text}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  );
+};
 
-          <MenuItem value="Africa">Africa</MenuItem>
-          <MenuItem value="America">America</MenuItem>
-          <MenuItem value="Asia">Asia</MenuItem>
-          <MenuItem value="Europe">Europe</MenuItem>
-          <MenuItem value="Oceania">Oceania</MenuItem>
-        </TextField>
-      </Grid>
-    </Grid>
+const SearchBar = ({ value, onChange, name }) => {
+  return (
+    <TextField
+      value={value}
+      name={name}
+      onChange={onChange}
+      sx={{ maxWidth: 400, width: "100%", boxShadow: 1 }}
+      placeholder="Search for a country..."
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <SearchIcon />
+          </InputAdornment>
+        ),
+      }}
+    />
+  );
+};
+
+function FilterSearch() {
+  const [query, setQuery] = useState("");
+  const [region, setRegion] = useState("");
+
+  const dispatch = useDispatch();
+
+  const debounceSearchQuery = useDebounce(query, 300);
+
+  useEffect(() => {
+    if (debounceSearchQuery) {
+      dispatch(fetchCountryByName({ name: debounceSearchQuery }));
+    } else if (region) {
+      dispatch(fetchCountryByRegion({ region: region }));
+    } else {
+      dispatch(fetchAllCountries());
+    }
+  }, [debounceSearchQuery, region]);
+
+  return (
+    <Stack
+      direction={"row"}
+      alignItems={"center"}
+      justifyContent={"space-between"}
+      flexWrap={"wrap"}
+      sx={{ padding: "2rem 0" }}
+    >
+      <SearchBar
+        name="searchQuery"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      <RegionSelect
+        value={region}
+        name={"region"}
+        onChange={(e) => setRegion(e.target.value)}
+      />
+    </Stack>
   );
 }
 

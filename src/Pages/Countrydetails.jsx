@@ -1,38 +1,35 @@
 import axios from "axios";
-import { Box, Button, CircularProgress, Container, Grid } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  Stack,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SingleCountryDetailContainer from "./CountryDetailsComponents/SingleCountryDetailContainer";
 import { Link, useParams } from "react-router-dom";
 import SingleCountryFlag from "./CountryDetailsComponents/SingleCountryFlag";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCountryByName } from "../store/countrySlice";
+import MuiContainer from "../Components/MuiContainer";
 
 function Countrydetails() {
-  const { id } = useParams();
-  const [singleCountryDetails, setsingleCountryDetails] = useState([]);
-  const FetchCountriesDetails = async () => {
-    const { data } = await axios.get(
-      `https://restcountries.com/v2/capital/${id}`
-    );
-    setsingleCountryDetails(data);
-  };
+  const { name } = useParams();
+  const { countries, isLoading } = useSelector((state) => state.country);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    FetchCountriesDetails();
+    if (name) {
+      dispatch(fetchCountryByName({ name: name }));
+    }
   }, []);
+
   return (
-    <div style={{ marginTop: "5rem" }}>
-      <Box sx={{ padding: "1.4rem 1.5rem" }}>
-        <Link to={`/`} style={{textDecoration: 'none'}}>
-          <Button
-            variant="contained"
-            startIcon={<KeyboardBackspaceIcon />}
-            sx={{ marginLeft: "1rem" }}
-          >
-            Back
-          </Button>
-        </Link>
-      </Box>
-      {singleCountryDetails.length == 0 ? (
+    <MuiContainer>
+      {isLoading || countries.length === 0 ? (
         <div
           style={{
             display: "flex",
@@ -42,57 +39,36 @@ function Countrydetails() {
           <CircularProgress color="secondary" />
         </div>
       ) : (
-        <Container maxWidth="100%">
-          {singleCountryDetails.map(
-            (
-              {
-                flag,
-                name,
-                nativeName,
-                topLevelDomain,
-                capital,
-                subregion,
-                region,
-                population,
-                currencies,
-                languages,
-                borders,
-              },
-              idx
-            ) => {
+        <Box style={{ padding: "2rem 0" }}>
+          <Link to={`/`} style={{ textDecoration: "none" }}>
+            <Button variant="contained" startIcon={<KeyboardBackspaceIcon />}>
+              Back
+            </Button>
+          </Link>
+          {countries.length !== 0 &&
+            countries.map((country, idx) => {
               return (
                 <Grid
-                  key={name}
                   container
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
+                  columns={12}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  key={idx}
+                  columnSpacing={12}
+                  style={{ padding: "2rem 0" }}
                 >
-                  <Grid item lg={6} md={6} sm={12}>
-                    <SingleCountryFlag countryflag={flag} />
+                  <Grid item lg={6}>
+                    <SingleCountryFlag countryflag={country?.flags?.png} />
                   </Grid>
-                  <Grid item lg={6} md={6} sm={12}>
-                    <SingleCountryDetailContainer
-                      name={name}
-                      nativename={nativeName}
-                      topleveldomain={topLevelDomain}
-                      capital={capital}
-                      subregion={subregion}
-                      region={region}
-                      population={population}
-                      currencies={currencies}
-                      languages={languages}
-                      borders={borders}
-                    />
+                  <Grid item lg={6}>
+                    <SingleCountryDetailContainer {...country} />
                   </Grid>
                 </Grid>
               );
-            }
-          )}
-        </Container>
+            })}
+        </Box>
       )}
-    </div>
+    </MuiContainer>
   );
 }
 

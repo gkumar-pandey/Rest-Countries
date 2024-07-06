@@ -5,15 +5,16 @@ import Typography from "@mui/material/Typography";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import Button from "@mui/material/Button";
+import MuiContainer from "./MuiContainer";
 
 function Navbar(props) {
   const { isDarkMode, HandleDarkMode } = props;
   return (
-    <>
-      <AppBar position="fixed" color="">
+    <AppBar position="sticky">
+      <MuiContainer>
         <Toolbar>
           <Typography variant="h6" component="div" sx={customstyle.logo}>
-            Where in the world?
+            🌎 Where in the world?
           </Typography>
           <Button
             variant="outline"
@@ -27,8 +28,8 @@ function Navbar(props) {
             </Typography>
           </Button>
         </Toolbar>
-      </AppBar>
-    </>
+      </MuiContainer>
+    </AppBar>
   );
 }
 
@@ -37,7 +38,6 @@ const customstyle = {
     flexGrow: "1",
     fontWeight: "bold",
   },
-  button: {},
 };
 
 export default Navbar;
