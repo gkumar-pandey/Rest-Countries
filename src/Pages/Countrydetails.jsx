@@ -6,6 +6,8 @@ import {
   Container,
   Grid,
   Stack,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SingleCountryDetailContainer from "./CountryDetailsComponents/SingleCountryDetailContainer";
@@ -27,6 +29,9 @@ function Countrydetails() {
     }
   }, []);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <MuiContainer>
       {isLoading || countries.length === 0 ? (
@@ -45,22 +50,22 @@ function Countrydetails() {
               Back
             </Button>
           </Link>
-          {countries.length !== 0 &&
-            countries.map((country, idx) => {
+          {countries?.length !== 0 &&
+            countries?.map((country, idx) => {
               return (
                 <Grid
                   container
-                  columns={12}
+                  columns={isMobile ? 1 : 2}
                   justifyContent={"center"}
                   alignItems={"center"}
                   key={idx}
                   columnSpacing={12}
                   style={{ padding: "2rem 0" }}
                 >
-                  <Grid item lg={6}>
+                  <Grid item lg={1}>
                     <SingleCountryFlag countryflag={country?.flags?.png} />
                   </Grid>
-                  <Grid item lg={6}>
+                  <Grid item lg={1}>
                     <SingleCountryDetailContainer {...country} />
                   </Grid>
                 </Grid>
