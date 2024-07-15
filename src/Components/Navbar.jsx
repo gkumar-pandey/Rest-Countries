@@ -12,7 +12,14 @@ function Navbar(props) {
   return (
     <AppBar position="sticky">
       <MuiContainer>
-        <Toolbar>
+        <Toolbar
+          sx={{
+            "&.MuiToolbar-root": {
+              paddingLeft: "0px",
+              paddingRight: "0px",
+            },
+          }}
+        >
           <Typography variant="h6" component="div" sx={customstyle.logo}>
             🌎 Where in the world?
           </Typography>
