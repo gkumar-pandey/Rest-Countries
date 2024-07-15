@@ -17,7 +17,9 @@ export const fetchCountriesApi = async () => {
 
 export const fetchCountryByNameApi = async (countryName) => {
   try {
-    const { data, status } = await axios.get(`${BASE_URL}/name/${countryName}`);
+    const { data, status } = await axios.get(
+      `${BASE_URL}/name/${countryName}?fullText=true`
+    );
 
     if (status === 200) {
       return data;
