@@ -4,14 +4,16 @@ import React from "react";
 function SingleCountryData(props) {
   const { title, data } = props;
   return (
-    <Stack style={{ width: "100%", border: "1px solid red" }} direction={"row"}>
-      <Typography variant="h6" component="h4" sx={{ fontWeight: "bold" }}>
+    <Stack
+      style={{ width: "100%" }}
+      gap={1}
+      alignItems={"center"}
+      direction={"row"}
+    >
+      <Typography sx={{ fontWeight: "600", fontSize: "1.2rem" }}>
         {title}
       </Typography>
-
-      <Typography variant="h6" component="h4">
-        {data}
-      </Typography>
+      <p>{data}</p>
     </Stack>
   );
 }

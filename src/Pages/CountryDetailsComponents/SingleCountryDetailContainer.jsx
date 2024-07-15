@@ -1,4 +1,11 @@
-import { Button, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import SingleCountryData from "./SingleCountryData";
 import React from "react";
 
@@ -15,11 +22,11 @@ function SingleCountryDetailContainer(props) {
     borders,
   } = props;
 
-  const currencyArr = Object.values(currencies);
-  const laguagesArr = Object.values(languages);
+  const currencyArr = currencies && Object.values(currencies);
+  const laguagesArr = languages && Object.values(languages);
 
   return (
-    <div style={{ padding: "0 1rem" }}>
+    <>
       <Typography
         variant="h3"
         component="div"
@@ -27,29 +34,35 @@ function SingleCountryDetailContainer(props) {
       >
         {name?.common}
       </Typography>
-      <Stack direction={"row"} justifyContent={"space-between"}>
-        <div>
-          <SingleCountryData title="Official Name: " data={name.official} />
-          <SingleCountryData title="Population: " data={population} />
-          <SingleCountryData title="Region: " data={region} />
-          <SingleCountryData title="Sub Region: " data={subregion} />
-          <SingleCountryData title="Capital: " data={capital[0]} />
-        </div>
-        <div>
-          <SingleCountryData
-            title="Top Level Domain: "
-            data={tld?.map((ele) => ele)}
-          />
-          <SingleCountryData
-            title="Currencies: "
-            data={currencyArr?.map((ele) => ele["name"])}
-          />
-          <SingleCountryData
-            title="Languages"
-            data={laguagesArr?.map((ele) => ele)}
-          />
-        </div>
-      </Stack>
+      <Box>
+        <Stack
+          direction={"row"}
+          justifyContent={"space-between"}
+          flexWrap={"wrap"}
+        >
+          <div>
+            <SingleCountryData title="Official Name: " data={name.official} />
+            <SingleCountryData title="Population: " data={population} />
+            <SingleCountryData title="Region: " data={region} />
+            <SingleCountryData title="Sub Region: " data={subregion} />
+            <SingleCountryData title="Capital: " data={capital && capital[0]} />
+          </div>
+          <div>
+            <SingleCountryData
+              title="Top Level Domain: "
+              data={tld?.map((ele) => ele)}
+            />
+            <SingleCountryData
+              title="Currencies: "
+              data={currencyArr?.map((ele) => ele["name"])}
+            />
+            <SingleCountryData
+              title="Languages"
+              data={laguagesArr?.map((ele) => ele)}
+            />
+          </div>
+        </Stack>
+      </Box>
       <Stack direction={"row"} alignItems={"center"} gap={1}>
         <Typography variant="h6" component="h4" sx={{ fontWeight: "bold" }}>
           Border Countries
@@ -60,7 +73,7 @@ function SingleCountryDetailContainer(props) {
           </Button>
         ))}
       </Stack>
-    </div>
+    </>
   );
 }
 
