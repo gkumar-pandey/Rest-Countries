@@ -15,7 +15,7 @@ import { Link, useParams } from "react-router-dom";
 import SingleCountryFlag from "./CountryDetailsComponents/SingleCountryFlag";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCountryByName } from "../store/countrySlice";
+import { fetchCountryByFullName } from "../store/countrySlice";
 import MuiContainer from "../Components/MuiContainer";
 
 function Countrydetails() {
@@ -25,7 +25,7 @@ function Countrydetails() {
 
   useEffect(() => {
     if (name) {
-      dispatch(fetchCountryByName({ name: name }));
+      dispatch(fetchCountryByFullName({ name: name }));
     }
   }, []);
 

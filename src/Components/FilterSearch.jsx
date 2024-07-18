@@ -6,6 +6,8 @@ import {
   Select,
   Stack,
   TextField,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { MenuItem } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -27,13 +29,27 @@ const RegionSelect = ({ value, onChange, name }) => {
     { text: "Oceania", value: "Oceania" },
   ];
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
-    <FormControl sx={{ width: 250, boxShadow: 1 }}>
+    <FormControl
+      sx={{ width: 250, boxShadow: 1, marginY: isMobile && "0.5rem" }}
+    >
       <Select
         placeholder="Filter By Region"
         name={name}
         value={value}
         onChange={onChange}
+        displayEmpty
+        sx={{
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: "text.secondary",
+          },
+          "& .MuiSvgIcon-root": {
+            color: "text.primary",
+          },
+        }}
       >
         {regions.map((ele, idx) => (
           <MenuItem key={idx} value={ele.value}>
@@ -51,12 +67,19 @@ const SearchBar = ({ value, onChange, name }) => {
       value={value}
       name={name}
       onChange={onChange}
-      sx={{ maxWidth: 400, width: "100%", boxShadow: 1 }}
+      sx={{
+        maxWidth: 400,
+        width: "100%",
+        boxShadow: 1,
+        "& .MuiOutlinedInput-notchedOutline": {
+          borderColor: "text.secondary",
+        },
+      }}
       placeholder="Search for a country..."
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <SearchIcon />
+            <SearchIcon sx={{ color: "text.primary" }} />
           </InputAdornment>
         ),
       }}

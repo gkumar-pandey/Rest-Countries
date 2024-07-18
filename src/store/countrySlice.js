@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   fetchCountriesApi,
   fetchCountriesByRegionApi,
+  fetchCountryByFullNameApi,
   fetchCountryByNameApi,
 } from "../services";
 
@@ -14,6 +15,13 @@ const initialState = {
   isLoading: false,
   error: null,
 };
+
+export const fetchCountryByFullName = createAsyncThunk(
+  "countries/fetchCountryFullName",
+  async ({ name }) => {
+    return fetchCountryByFullNameApi(name);
+  }
+);
 
 export const fetchCountryByName = createAsyncThunk(
   "countries/fetchCountryName",
@@ -59,6 +67,19 @@ export const countrySlice = createSlice({
       state.countries = action.payload;
     });
     builder.addCase(fetchCountryByName.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(fetchCountryByFullName.pending, (state, action) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(fetchCountryByFullName.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.error = null;
+      state.countries = action.payload;
+    });
+    builder.addCase(fetchCountryByFullName.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
       console.log(action.payload);

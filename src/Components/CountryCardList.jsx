@@ -18,11 +18,11 @@ function CountryCardList(props) {
     dispatch(fetchAllCountries());
   }, []);
 
-  const pagesCount = Math.ceil(countries.length / 8);
+  const pagesCount = Math.ceil(countries?.length / 8);
   const firstIndex = (currPage - 1) * 8;
   const lastIndex = firstIndex + 8;
 
-  const currPageCountries = countries.slice(firstIndex, lastIndex);
+  const currPageCountries = countries?.slice(firstIndex, lastIndex);
 
   return (
     <Stack direction={"column"} justifyContent={"space-between"} gap={1}>
@@ -46,20 +46,20 @@ function CountryCardList(props) {
                 <CountryCard key={idx} {...ele} />
               </Link>
             ))}
+            <Stack
+              alignItems={"center"}
+              justifyContent={"center"}
+              sx={{ padding: "1rem 0" }}
+            >
+              <Pagination
+                onChange={(e, page) => setCurrPage(page)}
+                count={pagesCount}
+                variant="outlined"
+                shape="rounded"
+              />
+            </Stack>
           </>
         )}
-      </Stack>
-      <Stack
-        alignItems={"center"}
-        justifyContent={"center"}
-        sx={{ padding: "1rem 0" }}
-      >
-        <Pagination
-          onChange={(e, page) => setCurrPage(page)}
-          count={pagesCount}
-          variant="outlined"
-          shape="rounded"
-        />
       </Stack>
     </Stack>
   );
